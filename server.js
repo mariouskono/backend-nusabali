@@ -8,7 +8,7 @@ async function getRekomendasiFromPython(kategori, kabupaten_kota, rating_min, to
     const input = JSON.stringify({ kategori, kabupaten_kota, rating_min, top_n });
 
     // Ganti 'python' jadi 'python3' sesuai environment Railway
-    const py = spawn('python3', ['recomendation.py'], { cwd: Path.join(__dirname, '../backend') });
+    const py = spawn('python', ['recomendation.py'], { cwd: Path.join(__dirname, '../backend') });
 
     let stdoutData = '';
     let stderrData = '';
