@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "backend": "file:",
-    "@hapi/hapi": "^21.4.0"
+    "@hapi/hapi": "^21.4.0",
+    "@hapi/inert": "^7.1.0"
   }
 }
