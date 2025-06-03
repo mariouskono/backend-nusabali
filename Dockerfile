@@ -8,11 +8,12 @@ RUN apt-get update && apt-get install -y curl build-essential \
 # Install Python dependencies
 RUN pip install --no-cache-dir pandas tensorflow numpy
 
-# Debug cek lokasi python dan python3 (bisa dihapus setelah yakin)
-RUN which python && which python3 || echo "python3 not found"
+# Create symlinks for both python and python3 to ensure compatibility
+RUN ln -sf $(which python3) /usr/local/bin/python || echo "python3 link failed"
+RUN ln -sf $(which python3) /usr/bin/python || echo "python fallback link failed"
 
-# Buat alias python3 ke python agar spawn python3 bisa jalan
-RUN ln -sf $(which python) /usr/local/bin/python3
+# Verify Python installation
+RUN python --version && python3 --version
 
 WORKDIR /app
 
