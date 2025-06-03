@@ -1,25 +1,24 @@
-# Pakai base image Python slim (sudah ada Python)
 FROM python:3.11-slim
 
-# Install Node.js 18 dan npm
-RUN apt-get update && apt-get install -y curl \
+# Install Node.js dan tools build (dibutuhkan untuk npm dan tensorflow)
+RUN apt-get update && apt-get install -y curl build-essential \
   && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
   && apt-get install -y nodejs
 
-# Set working directory di dalam container
+# Install Python dependencies
+RUN pip install --no-cache-dir pandas tensorflow numpy
+
 WORKDIR /app
 
-# Copy package.json dan package-lock.json (jika ada)
+# Copy package.json dan package-lock.json
 COPY package*.json ./
 
-# Install dependencies Node.js
+# Install Node.js dependencies
 RUN npm install
 
-# Copy semua file project ke container
+# Copy seluruh kode
 COPY . .
 
-# Expose port yang Railway gunakan (biasanya 8080)
 EXPOSE 8080
 
-# Jalankan aplikasi node
 CMD ["node", "server.js"]
