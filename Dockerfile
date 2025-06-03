@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y curl build-essential \
 # Install Python dependencies
 RUN pip install --no-cache-dir pandas tensorflow numpy
 
+# Buat alias python3 ke python jika belum ada
+RUN ln -s /usr/local/bin/python /usr/local/bin/python3 || true
+
 WORKDIR /app
 
 # Copy package.json dan package-lock.json
